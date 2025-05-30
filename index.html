@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Java Repositories</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    table { border-collapse: collapse; width: 50%; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+    th { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h1>Java GitHub Repositories</h1>
+  <table id="repoTable">
+    <thead>
+      <tr>
+        <th>Repository Name</th>
+        <th>GitHub Link</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- JavaScript will populate this -->
+    </tbody>
+  </table>
+
+  <script>
+
+    fetch('repos.json')
+      .then(response => response.json())
+      .then(repos => {
+        const table = document.getElementById('repoTable').querySelector('tbody');
+        repos.forEach(repo => {
+          const row = document.createElement('tr');
+
+          const nameCell = document.createElement('td');
+          nameCell.textContent = repo;
+
+          const linkCell = document.createElement('td');
+          const link = document.createElement('a');
+          link.href = `https://github.com/${repo}`;
+          link.textContent = "View on GitHub";
+          link.target = "_blank";
+
+          linkCell.appendChild(link);
+          row.appendChild(nameCell);
+          row.appendChild(linkCell);
+          table.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error("Failed to load repos.json", error);
+      });
+  </script>
+</body>
+</html>
